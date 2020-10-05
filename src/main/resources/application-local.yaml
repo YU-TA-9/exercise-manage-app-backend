@@ -1,0 +1,24 @@
+spring:
+  profiles: local
+  jpa:
+    show-sql: true
+  datasource:
+    initialization-mode: always
+    url: jdbc:mysql://localhost:3306/exercise_manage
+    username: root
+    password:
+logging:
+  level:
+    type:
+      EnumType: trace
+      descriptor:
+        sql:
+          BasicBinder: trace
+    org:
+      hibernate:
+        SQL: debug
+conf:
+  path:
+    images: src/main/resources/static/upload/
+  url:
+    host: http://localhost:8080
