@@ -3,9 +3,10 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      docker: 18
+      docker: 19
     commands:
       - echo Entered the install phase...
+      - apt install gradle
       - add-apt-repository ppa:cwchien/gradle
       - apt-get update -y
       - apt-get install -y gradle
