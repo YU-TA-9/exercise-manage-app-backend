@@ -27,7 +27,7 @@ phases:
       - echo Entered the post_build phase...
       - docker push ${REPOSITORY_URI}/${REPOSITORY_NAME}:${IMAGE_TAG}
       - echo Writing image definitions file...
-      - printf '[{"name":"exercise-manage-app-backend-cluster","imageUri":"%s"}]' ${REPOSITORY_URI}/${REPOSITORY_NAME}:${IMAGE_TAG} > imagedefinitions.json
+      - printf '[{"name":"exercise-manage-app","imageUri":"%s"}]' ${REPOSITORY_URI}/${REPOSITORY_NAME}:${IMAGE_TAG} > imagedefinitions.json
 artifacts:
   files:
     - imagedefinitions.json
