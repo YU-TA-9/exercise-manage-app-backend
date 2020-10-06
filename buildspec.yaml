@@ -25,11 +25,11 @@ phases:
   post_build:
     commands:
       - echo Entered the post_build phase...
-      - docker push ${REPOSITORY_URI}　${REPOSITORY_NAME}:${IMAGE_TAG}
+      - docker push ${REPOSITORY_URI}/${REPOSITORY_NAME}:${IMAGE_TAG}
       - echo Writing image definitions file...
       - printf '{"name":"exercise-manage-app","ImageURI":"%s"}' ${REPOSITORY_URI}/${REPOSITORY_NAME}:${IMAGE_TAG} > imagedefinitions.json
 artifacts:
   files:
-    - imageDetail.json
+    - imagedefinitions.json
     - appspec.yaml
     - taskdef.json
