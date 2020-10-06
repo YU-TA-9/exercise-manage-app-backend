@@ -9,10 +9,28 @@ phases:
       - echo Entered the install phase...
       - java -version
       - gradle -v
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - REPOSITORY_URI=556545098389.dkr.ecr.ap-northeast-1.amazonaws.com/exercise-manage-app
+      - REPOSITORY_NAME=exercise-manage-app-backend
+      - aws ecr get-login-password --region ${AWS_DEFAULT_REGION} | docker login --username AWS --password-stdin ${REPOSITORY_URI}
+      - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
+      - IMAGE_TAG=${COMMIT_HASH:=latest}
   build:
     commands:
-      - gradle build -x test
-
+      - echo Entered build phase...
+      - docker build -t ${REPOSITORY_NAME} .
+      - docker tag ${REPOSITORY_NAME}:latest ${REPOSITORY_URI}/${REPOSITORY_NAME}:${IMAGE_TAG}
+  post_build:
+    commands:
+      - echo Entered the post_build phase...
+      - docker push ${REPOSITORY_URI}/${REPOSITORY_NAME}:${IMAGE_TAG}
+      - echo Writing image definitions file...
+      - printf '{"ImageURI":"%s"}' ${REPOSITORY_URI}/${REPOSITORY_NAME}:${IMAGE_TAG} > imageDetail.json
+      - envsubst < taskdef.template > taskdef.json
 artifacts:
   files:
-    - ./build/libs/exercise-manage-backend.jar
+    - imageDetail.json
+    - appspec.yaml
+    - taskdef.json
