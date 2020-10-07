@@ -1,0 +1,27 @@
+version: '3'
+services:
+  app:
+    image: amazoncorretto:11
+    hostname: app
+    ports:
+      - 8080:8080
+    depends_on:
+      - db
+    volumes:
+      - "./build/libs/exercise-manage-backend.jar:/app.jar"
+    command: "java -jar /app.jar --spring.profiles.active=production"
+  db:
+    image: mysql:5.7
+    hostname: db
+    container_name: mysql
+    environment:
+      MYSQL_DATABASE: exercise_manage
+      MYSQL_ROOT_USER: root
+      MYSQL_ROOT_PASSWORD: password
+      TZ: 'Asia/Tokyo'
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    ports:
+      - 3300:3306
+    volumes:
+      - "./docker/db/my.cnf:/etc/db/conf.d/my.cnf"
+      - "./docker/db/initdb:/docker-entrypoint-initdb.d"
