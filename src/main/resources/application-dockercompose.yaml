@@ -1,0 +1,14 @@
+spring:
+  profiles: dockercompose
+  jpa:
+    show-sql: true
+  datasource:
+    initialization-mode: always
+    url: jdbc:mysql://db:3306/exercise_manage
+    username: root
+    password: password
+conf:
+  path:
+    images: src/main/resources/static/upload/
+  url:
+    host: http://app:8080
