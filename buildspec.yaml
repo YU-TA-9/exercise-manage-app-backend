@@ -20,7 +20,8 @@ phases:
   build:
     commands:
       - echo Entered build phase...
-      - docker build --build-arg JAR_FILE=build/libs/exercise-manage-backend.jar -t ${REPOSITORY_NAME} .
+      - gradle build -x test
+      - docker build --build-arg JAR_FILE=./build/libs/exercise-manage-backend.jar -t ${REPOSITORY_NAME} .
       - docker tag ${REPOSITORY_NAME}:latest ${REPOSITORY_URI}/${REPOSITORY_NAME}:${IMAGE_TAG}
   post_build:
     commands:
