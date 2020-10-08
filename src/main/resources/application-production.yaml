@@ -4,9 +4,9 @@ spring:
     show-sql: true
   datasource:
     initialization-mode: always
-    url: jdbc:mysql://exercise-manage-app-db-2.cyhjaivb7n6v.ap-northeast-1.rds.amazonaws.com:3306
-    username: admin
-    password:
+    url: jdbc:mysql://10.0.50.10:3306
+    username: root
+    password: bQf<9_uuqFoi
 conf:
   path:
     images: src/main/resources/static/upload/
