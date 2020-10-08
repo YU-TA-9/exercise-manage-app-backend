@@ -4,7 +4,7 @@ spring:
     show-sql: true
   datasource:
     initialization-mode: always
-    url: jdbc:mysql://exercise-manage-app-db-2.cyhjaivb7n6v.ap-northeast-1.rds.amazonaws.com/exercise_manage
+    url: jdbc:mysql://exercise-manage-app-db-2.cyhjaivb7n6v.ap-northeast-1.rds.amazonaws.com:3306
     username: root
     password:
 conf:
