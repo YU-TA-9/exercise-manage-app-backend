@@ -6,7 +6,7 @@ spring:
     initialization-mode: always
     url: jdbc:mysql://10.0.50.10:3306/exercise_manage
     username: root
-    password: bQf<9_uuqFoi
+    password: adminAdmin9!
 conf:
   path:
     images: src/main/resources/static/upload/
