@@ -29,11 +29,6 @@ public class AuthFilter extends OncePerRequestFilter {
       HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
       throws ServletException, IOException {
     log.debug("doFilter,{},{}", request, response);
-    // 画像取得APIのみ認証を行わない
-    if (request.getRequestURI().matches("^/api/reading/content/image/.+")) {
-      // コントローラの処理へ
-      filterChain.doFilter(request, response);
-    }
 
     if (!checkHeaderBearerToken(request.getHeader(HEADER_KEY_AUTHORIZATION))) {
       createErrorResponse(response);
