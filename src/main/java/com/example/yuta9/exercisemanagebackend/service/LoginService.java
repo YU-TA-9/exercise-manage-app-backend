@@ -9,10 +9,10 @@ import org.springframework.stereotype.Service;
 public class LoginService {
 
   @Value("${conf.login.userName}")
-  private static String configuredUserName;
+  private String configuredUserName;
 
-  @Value("${conf.login.userName}")
-  private static String configuredPassword;
+  @Value("${conf.login.password}")
+  private String configuredPassword;
 
   /**
    * ログインを実行
@@ -22,10 +22,9 @@ public class LoginService {
    */
   public void login(LoginForm loginForm) {
     if (loginForm.getUserName().equals(configuredUserName)
-        && loginForm.equals(configuredPassword)) {
+        && loginForm.getPassword().equals(configuredPassword)) {
       return;
     }
-
     throw new RuntimeException("ユーザー名かパスワードが間違っています");
   }
 }

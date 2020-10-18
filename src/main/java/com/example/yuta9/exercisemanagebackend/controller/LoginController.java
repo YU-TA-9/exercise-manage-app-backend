@@ -5,7 +5,7 @@ import com.example.yuta9.exercisemanagebackend.service.LoginService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -20,7 +20,7 @@ public class LoginController {
 
   private final LoginService loginService;
 
-  @GetMapping
+  @PostMapping
   @ResponseStatus(HttpStatus.OK)
   public void login(@Validated @RequestBody LoginForm loginForm) {
     loginService.login(loginForm);
