@@ -1,5 +1,6 @@
 package com.example.yuta9.exercisemanagebackend.controller.exception;
 
+import com.example.yuta9.exercisemanagebackend.exception.AuthException;
 import com.example.yuta9.exercisemanagebackend.exception.NotFoundException;
 import com.example.yuta9.exercisemanagebackend.exception.RequestParamException;
 import com.example.yuta9.exercisemanagebackend.model.response.ErrorResponse;
@@ -240,6 +241,23 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     HttpHeaders headers = new HttpHeaders();
     ErrorResponse body = new ErrorResponse("Not Found", e.getMessage(), "");
     HttpStatus status = HttpStatus.NOT_FOUND;
+    return handleExceptionInternal(e, body, headers, status, request);
+  }
+
+  /**
+   * DBコミット時の一意制約違反時のエラーハンドル
+   *
+   * @param e
+   * @param request
+   * @return
+   */
+  @ExceptionHandler(AuthException.class)
+  public ResponseEntity<Object> handleAuthException(
+      DataIntegrityViolationException e, WebRequest request) {
+    log.warn(e.getMessage());
+    HttpHeaders headers = new HttpHeaders();
+    ErrorResponse body = new ErrorResponse("認証エラー", e.getMessage(), "");
+    HttpStatus status = HttpStatus.UNAUTHORIZED;
     return handleExceptionInternal(e, body, headers, status, request);
   }
 
