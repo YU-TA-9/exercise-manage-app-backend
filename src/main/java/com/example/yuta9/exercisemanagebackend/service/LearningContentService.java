@@ -1,5 +1,6 @@
 package com.example.yuta9.exercisemanagebackend.service;
 
+import com.example.yuta9.exercisemanagebackend.enums.ContentStatus;
 import com.example.yuta9.exercisemanagebackend.exception.NotFoundException;
 import com.example.yuta9.exercisemanagebackend.model.entity.LearningContent;
 import com.example.yuta9.exercisemanagebackend.model.request.learning.LearningContentForm;
@@ -112,5 +113,26 @@ public class LearningContentService {
     // 該当する時間テーブルのレコードを全て削除
     learningTimeRepository.deleteAllByContentId(targetRecord.getId());
     learningContentRepository.delete(targetRecord);
+  }
+
+  /**
+   * 着手中の学習内容を全て取得する
+   *
+   * @return
+   */
+  public List<LearningContentResponse> getLearningProgressingContent() {
+    return learningContentRepository
+        .findAllByStatusEquals(ContentStatus.PROGRESSING.getStatus())
+        .stream()
+        .map(
+            record -> {
+              return new LearningContentResponse(
+                  record.getId(),
+                  record.getTitle(),
+                  record.getDescription(),
+                  record.getStatus(),
+                  record.getColor());
+            })
+        .collect(Collectors.toList());
   }
 }

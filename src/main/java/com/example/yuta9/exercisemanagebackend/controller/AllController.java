@@ -1,6 +1,7 @@
 package com.example.yuta9.exercisemanagebackend.controller;
 
 import com.example.yuta9.exercisemanagebackend.model.request.all.AllTimeForm;
+import com.example.yuta9.exercisemanagebackend.model.response.all.AllContentResponse;
 import com.example.yuta9.exercisemanagebackend.model.response.all.AllContentSelectResponse;
 import com.example.yuta9.exercisemanagebackend.model.response.all.AllTimeListResponse;
 import com.example.yuta9.exercisemanagebackend.model.response.all.AllTimeResponse;
@@ -87,5 +88,17 @@ public class AllController {
     return new AllContentSelectResponse(
         learningContentService.getAllLearningContentForSelect(),
         readingContentService.getAllReadingContentForSelect());
+  }
+
+  /**
+   * 着手中内容取得API
+   *
+   * @return
+   */
+  @GetMapping("/content/progressing")
+  public AllContentResponse getProgressingContent() {
+    return new AllContentResponse(
+        learningContentService.getLearningProgressingContent(),
+        readingContentService.getReadingProgressingContent());
   }
 }

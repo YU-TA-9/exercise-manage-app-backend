@@ -1,5 +1,6 @@
 package com.example.yuta9.exercisemanagebackend.service;
 
+import com.example.yuta9.exercisemanagebackend.enums.ContentStatus;
 import com.example.yuta9.exercisemanagebackend.enums.Extension;
 import com.example.yuta9.exercisemanagebackend.exception.NotFoundException;
 import com.example.yuta9.exercisemanagebackend.exception.UnexpectedException;
@@ -131,6 +132,28 @@ public class ReadingContentService {
     readingContent.setDescription(readingContentForm.getDescription());
     readingContent.setColor(readingContentForm.getColor());
     readingContentRepository.save(readingContent);
+  }
+
+  /**
+   * 着手中の学習内容を全て取得する
+   *
+   * @return
+   */
+  public List<ReadingContentResponse> getReadingProgressingContent() {
+    return readingContentRepository
+        .findAllByStatusEquals(ContentStatus.PROGRESSING.getStatus())
+        .stream()
+        .map(
+            record -> {
+              return new ReadingContentResponse(
+                  record.getId(),
+                  record.getTitle(),
+                  record.getDescription(),
+                  record.getStatus(),
+                  record.getColor(),
+                  record.getImagePath());
+            })
+        .collect(Collectors.toList());
   }
 
   /**
